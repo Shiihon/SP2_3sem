@@ -10,7 +10,7 @@ public class Main {
         //EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("persons");
 
         // Initialize Javalin app
-        Javalin app = Javalin.create().start(7000);
+        Javalin app = Javalin.create().start(7070);
 
         // Create ObjectMapper instance
         ObjectMapper objectMapper = new ObjectMapper();
@@ -48,5 +48,9 @@ public class Main {
         public void setMessage(String message) {
             this.message = message;
         }
+    }
+
+    public int add(int a, int b) {
+        return a + b;
     }
 }
