@@ -8,7 +8,6 @@
 # Ignore IDE-specific config files
 .idea/encoding.xml
 .idea/vcs.xml
-.idea/misc.xml
 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -220,3 +219,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,maven,osx,windows
+/.idea/encodings.xml
+/.idea/misc.xml
