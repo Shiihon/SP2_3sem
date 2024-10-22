@@ -24,7 +24,7 @@ public class Main {
     private static void sendHelloWorld(Context ctx, ObjectMapper objectMapper) {
         try {
             // Create a simple message
-            Message message = new Message("Hello World");
+            Message message = new Message("Hello World, this is happening");
 
             // Convert the message to JSON and send it as the response
             String jsonResponse = objectMapper.writeValueAsString(message);
