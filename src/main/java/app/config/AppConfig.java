@@ -1,5 +1,7 @@
 package app.config;
 
+import app.security.controller.AccessController;
+import app.security.routes.SecurityRoutes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
@@ -21,6 +23,7 @@ public class AppConfig {
     private static final ExceptionController exceptionController = new ExceptionController();
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
     private static Logger logger = LoggerFactory.getLogger(AppConfig.class); //logger ansvarlig for appconfig filen.
+    private static AccessController accessController = new AccessController();
 
     private static void configuration(JavalinConfig config) {
         //Server
@@ -32,6 +35,10 @@ public class AppConfig {
 
         // Routes
         config.router.apiBuilder(routes.getApiRoutes());
+
+        // Security
+        config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
+        config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());
     }
 
     //Exceptions
@@ -44,7 +51,7 @@ public class AppConfig {
     public static Javalin startServer(EntityManagerFactory emf) {
         routes = new Routes(emf);
         Javalin app = Javalin.create(AppConfig::configuration);
-
+        app.beforeMatched(accessController::accessHandler);
         app.start(ApiProps.PORT);
         exceptionContext(app);
         return app;
