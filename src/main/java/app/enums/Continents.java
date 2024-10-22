@@ -1,5 +1,5 @@
 package app.enums;
 
-public enum continents {
+public enum Continents {
 ASIA, AFRICA, NORTH_AMERICA, SOUTH_AMERICA, ANTARCTICA, EUROPE, AUSTRALIA
 }
