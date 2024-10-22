@@ -1,7 +1,7 @@
 package app.controllers;
 
 import io.javalin.http.Context;
-import app.dtos.Message;
+import app.exceptions.Message;
 import app.exceptions.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
