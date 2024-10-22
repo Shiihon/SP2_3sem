@@ -13,7 +13,6 @@ import java.util.Objects;
 @Entity
 @Data
 @NoArgsConstructor
-@Builder
 @Table(name = "country")
 public class Country {
     @Id
@@ -28,11 +27,12 @@ public class Country {
     @Column(name = "national_animal")
     private String nationalAnimal;
     @Column(name = "national_dishes")
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", orphanRemoval = true)
     private List<NationalDish> nationalDishes;
-    @OneToMany(mappedBy = "country")
-    private List<Sights> SightseeingSpots;
+    @OneToMany(mappedBy = "country", orphanRemoval = true)
+    private List<Sight> SightseeingSpots;
 
+    @Builder
     public Country(Long id, String name, Double population, Continents continent, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sights> sightseeingSpots) {
         this.id = id;
         this.name = name;
@@ -42,7 +42,7 @@ public class Country {
         this.OfficialLanguage = officialLanguage;
         this.nationalAnimal = nationalAnimal;
         this.nationalDishes = Objects.requireNonNullElse(NationalDish, new ArrayList<>());
-        this.SightseeingSpots = Objects.requireNonNullElse(Sights, new ArrayList<>());
+        this.SightseeingSpots = Objects.requireNonNullElse(Sight, new ArrayList<>());
     }
 }
 
