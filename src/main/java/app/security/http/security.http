@@ -1,0 +1,83 @@
+### A simple get request to the test endpoint. No need for login
+GET {{url}}/auth/test/
+
+### Create a new user - this one will only get a USER role by default
+POST {{url}}/auth/register/
+
+{
+    "username": "user",
+    "password": "test123"
+}
+
+###
+POST {{url}}/auth/login/
+
+{
+    "username": "user",
+    "password": "test123"
+}
+
+> {%
+    client.global.set("jwt_token", response.body.token);
+    console.log("JWT Token:", client.global.get("jwt_token"));
+%}
+
+###
+POST {{url}}/auth/login/
+
+{
+    "username": "admin",
+    "password": "test123"
+}
+
+> {%
+    client.global.set("jwt_token", response.body.token);
+    console.log("JWT Token:", client.global.get("jwt_token"));
+%}
+
+###
+GET {{url}}/protected/user_demo/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+GET {{url}}/protected/admin_demo/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+### UPDATE
+PUT  {{url}}/countries/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+## UPDATE ENTITY HERE
+
+### GET request with a header
+GET {{url}}/countries/1
+Accept: application/json
+
+### DELETE
+DELETE {{url}}/countries/1/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+### POST example
+POST {{url}}/countries/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+## POST COUNTRY HERE
+
+### Reset token
+GET {{url}}/auth/test/
+
+> {%
+    client.global.set("jwt_token", null);
+    console.log("JWT Token:", client.global.get("jwt_token"));
+%}
+
+### GET request with a header
+GET {{url}}
+Accept: application/json
