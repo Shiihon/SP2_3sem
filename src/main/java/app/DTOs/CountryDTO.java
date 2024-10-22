@@ -1,8 +1,6 @@
 package app.DTOs;
 
-import app.entities.City;
 import app.entities.Country;
-import app.entities.NationalDish;
 import app.enums.Continents;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
