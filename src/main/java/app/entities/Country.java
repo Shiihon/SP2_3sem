@@ -38,7 +38,6 @@ public class Country {
         this.id = id;
         this.name = name;
         this.population = population;
-//        this.continent = continent;
         this.currency = currency;
         this.OfficialLanguage = officialLanguage;
         this.nationalAnimal = nationalAnimal;
@@ -50,7 +49,6 @@ public class Country {
     this.id = countryDTO.getId();
     this.name = countryDTO.getName();
     this.population = countryDTO.getPopulation();
-//    this.continent = countryDTO.getContinent();
     this.currency = countryDTO.getCurrency();
     this.OfficialLanguage = countryDTO.getOfficialLanguage();
     this.nationalAnimal = countryDTO.getNationalAnimal();
@@ -60,6 +58,12 @@ public class Country {
         SightseeingSpots.add(sight);
         sight.setCountry(this);
     }
+
+    public void addNationalDish(NationalDish nationalDish) {
+        nationalDishes.add(nationalDish);
+        nationalDish.setCountry(this);
+    }
 }
+
 
 
