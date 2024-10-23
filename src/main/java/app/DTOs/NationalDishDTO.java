@@ -17,7 +17,7 @@ public class NationalDishDTO {
     private String ingredients;
     private String description;
 
-    public NationalDishDTO(NationalDish nationalDish){
+    public NationalDishDTO(NationalDish nationalDish) {
         this.id = nationalDish.getId();
         this.name = nationalDish.getName();
         this.ingredients = nationalDish.getIngredients();
@@ -49,6 +49,7 @@ public class NationalDishDTO {
     public int hashCode() {
         return Objects.hash(id, name, ingredients, description);
     }
+
     @JsonIgnore
     public NationalDish getAsEntity() {
         NationalDish nationalDish = new NationalDish();
