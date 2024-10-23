@@ -8,6 +8,7 @@ import lombok.Setter;
 
 @Table(name="national_dishes")
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class NationalDish {
