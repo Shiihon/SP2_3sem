@@ -1,5 +1,7 @@
 package app.config;
 
+import app.entities.Country;
+import app.entities.Sight;
 import app.security.entities.Role;
 import app.security.entities.User;
 import jakarta.persistence.EntityManagerFactory;
@@ -34,6 +36,9 @@ public class HibernateConfig {
     private static void getAnnotationConfiguration(Configuration configuration) {
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Role.class);
+        configuration.addAnnotatedClass(Sight.class);
+        configuration.addAnnotatedClass(Country.class);
+
     }
 
     private static EntityManagerFactory createEMF(boolean forTest, String DBName) {

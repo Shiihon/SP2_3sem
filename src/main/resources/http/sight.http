@@ -1,9 +1,17 @@
 ###GET ALL Sights
+GET http://localhost:7000/api/sight
 
 ###GET Sight by ID
+GET http://localhost:7000/api/sight/5
 
 ###POST Creating a Sights
+POST http://localhost:7000/api/sight
+Content-Type: application/json
+
 
 ###PUT Update a Sight
+PUT http://localhost:7000/api/sight
+Content-Type: application/json
 
 ###DELETE A Sights
+DELETE http://localhost:7000/api/sight/4

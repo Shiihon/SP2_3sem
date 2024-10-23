@@ -6,7 +6,7 @@ import app.daos.SightDAO;
 import io.javalin.apibuilder.EndpointGroup;
 import jakarta.persistence.EntityManagerFactory;
 
-import static io.javalin.apibuilder.ApiBuilder.get;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class SightRoute {
     private EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("country");
@@ -20,11 +20,11 @@ public class SightRoute {
 
             get("/sight/{id}", sightController::getById);
 
-            get("/sight", sightController::create);
+            post("/sight", sightController::create);
 
-            get("/sight", sightController::update);
+            put("/sight", sightController::update);
 
-            get("/sight/{id}", sightController::delete);
+            delete("/sight/{id}", sightController::delete);
 
         };
     }
