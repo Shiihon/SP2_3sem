@@ -1,6 +1,7 @@
 package app.DTOs;
 
 import app.entities.Country;
+import app.entities.NationalDish;
 import app.entities.Sight;
 import app.enums.Continents;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,32 +24,30 @@ public class CountryDTO {
     private String currency;
     private String OfficialLanguage;
     private String nationalAnimal;
-    private List<NationalDish> nationalDishes;
-    private List<Sight> sightseeingSpots;
-    private List <SightDTO> sightDTO;
+    private List<NationalDishDTO> nationalDishes;
+    private List <SightDTO> sightseeingSpotsDTO;
 
     public CountryDTO(Country country) {
         this.id = country.getId();
         this.name = country.getName();
         this.population = country.getPopulation();
-        this.continent = country.getContinent();
         this.currency = country.getCurrency();
         this.OfficialLanguage = country.getOfficialLanguage();
         this.nationalAnimal = country.getNationalAnimal();
         this.nationalDishes = country.getNationalDishes().stream().map(NationalDishDTO::new).collect(Collectors.toList());
-        this.sightseeingSpots = country.getSightseeingSpots().stream().map(SightsDTO::new).collect(Collectors.toList());
+        this.sightseeingSpotsDTO = country.getSightseeingSpots().stream().map(SightDTO::new).collect(Collectors.toList());
     }
 
-    public CountryDTO(Country country) {
-        this.id = country.getId();
-        this.name = country.getName();
-        this.population = country.getPopulation();
-        this.continent = country.getContinent();
-        this.currency = country.getCurrency();
-        this.OfficialLanguage = country.getOfficialLanguage();
-        this.nationalAnimal = country.getNationalAnimal();
-        this.sightDTO = SightDTO.toDTOsList(country.getSightseeingSpots());
-    }
+//    public CountryDTO(Country country) {
+//        this.id = country.getId();
+//        this.name = country.getName();
+//        this.population = country.getPopulation();
+//        this.continent = country.getContinent();
+//        this.currency = country.getCurrency();
+//        this.OfficialLanguage = country.getOfficialLanguage();
+//        this.nationalAnimal = country.getNationalAnimal();
+//        this.sightDTO = SightDTO.toDTOsList(country.getSightseeingSpots());
+//    }
 
     @JsonIgnore
     public Country getAsEntity() {
@@ -60,9 +59,9 @@ public class CountryDTO {
                 new ArrayList<>();
 
         // Convert Cities
-        List<Sights> sightEntities = (this.sightseeingSpots != null) ?
-                this.sightseeingSpots.stream()
-                        .map(SightsDTO::getAsEntity)
+        List<Sight> sightEntities = (this.sightseeingSpotsDTO != null) ?
+                this.sightseeingSpotsDTO.stream()
+                        .map(SightDTO::getAsEntity)
                         .collect(Collectors.toList()) :
                 new ArrayList<>();
 
@@ -70,11 +69,10 @@ public class CountryDTO {
                 .id(id)
                 .name(name)
                 .population(population)
-                .continent(continent)
                 .currency(currency)
                 .nationalAnimal(nationalAnimal)
                 .nationalDishes(nationalDishEntities)
-                .SightseeingSpots(sightEntities)
+                .sightseeingSpots(sightEntities)
                 .build();
     }
 }
