@@ -1,6 +1,5 @@
 package app.DTOs;
 
-import app.entities.NationalDish;
 import app.entities.Sight;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +22,7 @@ public class SightDTO {
     public SightDTO(Sight sight) {
         this.id = sight.getId();
         this.title = sight.getTitle();
-        this.adress = sight.getAdress();
+        this.adress = sight.getAddress();
     }
 
     public static List<SightDTO> toDTOsList(List<Sight> sights) {
@@ -35,7 +34,7 @@ public class SightDTO {
         Sight sight = new Sight();
         sight.setId(id);
         sight.setTitle(title);
-        sight.setAdress(adress);
+        sight.setAddress(adress);
         return sight;
     }
 }
