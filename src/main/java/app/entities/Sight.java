@@ -4,7 +4,6 @@ import app.DTOs.SightDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @NoArgsConstructor
 @Data
 @Builder
