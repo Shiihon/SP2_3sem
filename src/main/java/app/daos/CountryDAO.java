@@ -72,7 +72,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
                 }
                 sightseeing.setCountry(country); // Associate sightseeing with country
             }
-            country.setSightseeingList(sightseeingEntities);
+            country.setSightseeingSpots(sightseeingEntities);
             country.setNationalDishes(nationalDishEntities);
 
             em.persist(country);
@@ -126,19 +126,19 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public void delete(Long id) {
-        try(EntityManager em = emf.createEntityManager()) {
-        Country country = em.find(Country.class, id);
+        try (EntityManager em = emf.createEntityManager()) {
+            Country country = em.find(Country.class, id);
 
-        if (country == null) {
-            throw new EntityNotFoundException("Country not found");
+            if (country == null) {
+                throw new EntityNotFoundException("Country not found");
+            }
+
+            em.getTransaction().begin();
+            em.remove(country);
+            em.getTransaction().commit();
+
+        } catch (RollbackException e) {
+            throw new RollbackException(String.format("Unable to delete country, with id: %d : %s", id, e.getMessage()));
         }
-
-        em.getTransaction().begin();
-        em.remove(country);
-        em.getTransaction().commit();
-
-    } catch (RollbackException e) {
-        throw new RollbackException(String.format("Unable to delete country, with id: %d : %s", id, e.getMessage()));
-    }
     }
 }
