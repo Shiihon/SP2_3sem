@@ -6,21 +6,19 @@ import jakarta.persistence.EntityManagerFactory;
 import static io.javalin.apibuilder.ApiBuilder.path;
 
 public class Routes {
-//    private HotelRoutes hotelRoutes;
-//    private RoomRoutes roomRoutes;
-    private SightRoute sightRoute = new SightRoute();
 
+    private NationalDishRoute nationalDishRoute;
+    private SightRoute sightRoute;
+  
     public Routes(EntityManagerFactory emf) {
-//        hotelRoutes = new HotelRoutes(emf);
-
+        nationalDishRoute = new NationalDishRoute(emf);
+        sightRoute = new SightRoute()
     }
 
     public EndpointGroup getApiRoutes() {
         return () -> {
+            path("/nationalDishes", nationalDishRoute.getRoutes());
             path("/", sightRoute.addSightRoutes());
-//            path("/hotel", hotelRoutes.getHotelRoutes());
-//            path("/room", roomRoutes.getRoomRoutes());
-//            path("/", securityRoutes.getSecurityRoutes()); EXAMPLES
         };
     }
 }
