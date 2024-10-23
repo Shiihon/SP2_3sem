@@ -1,5 +1,6 @@
 package app.entities;
 
+import app.DTOs.CountryDTO;
 import app.enums.Continents;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -43,6 +44,20 @@ public class Country {
         this.nationalAnimal = nationalAnimal;
         this.nationalDishes = Objects.requireNonNullElse(NationalDish, new ArrayList<>());
         this.SightseeingSpots = Objects.requireNonNullElse(Sight, new ArrayList<>());
+    }
+    public Country(CountryDTO countryDTO){
+    this.id = countryDTO.getId();
+    this.name = countryDTO.getName();
+    this.population = countryDTO.getPopulation();
+    this.continent = countryDTO.getContinent();
+    this.currency = countryDTO.getCurrency();
+    this.OfficialLanguage = countryDTO.getOfficialLanguage();
+    this.nationalAnimal = countryDTO.getNationalAnimal();
+    }
+
+    public void addSight(Sight sight) {
+        SightseeingSpots.add(sight);
+        sight.setCountry(this);
     }
 }
 
