@@ -13,7 +13,6 @@ import java.util.Objects;
 @Entity
 @Data
 @NoArgsConstructor
-@Builder
 @Table(name = "country")
 public class Country {
     @Id
@@ -28,12 +27,13 @@ public class Country {
     @Column(name = "national_animal")
     private String nationalAnimal;
     @Column(name = "national_dishes")
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", orphanRemoval = true)
     private List<NationalDish> nationalDishes;
-    @OneToMany(mappedBy = "country")
-    private List<City> cities;
+    @OneToMany(mappedBy = "country", orphanRemoval = true)
+    private List<Sight> SightseeingSpots;
 
-    public Country(Long id, String name, Double population, Continents continent, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<City> cities) {
+    @Builder
+    public Country(Long id, String name, Double population, Continents continent, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sights> sightseeingSpots) {
         this.id = id;
         this.name = name;
         this.population = population;
@@ -41,8 +41,8 @@ public class Country {
         this.currency = currency;
         this.OfficialLanguage = officialLanguage;
         this.nationalAnimal = nationalAnimal;
-        this.nationalDishes = Objects.requireNonNullElse(nationalDishes, new ArrayList<>());
-        this.cities = Objects.requireNonNullElse(cities, new ArrayList<>());
+        this.nationalDishes = Objects.requireNonNullElse(NationalDish, new ArrayList<>());
+        this.SightseeingSpots = Objects.requireNonNullElse(Sight, new ArrayList<>());
     }
 }
 

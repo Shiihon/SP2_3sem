@@ -1,12 +1,12 @@
 package app.daos;
 
-import java.util.Set;
+import java.util.List;
 
 public interface IDAO<T> {
 
     T getById(Long id);
 
-    Set<T> getAll();
+    List<T> getAll();
 
     T create(T t);
 
