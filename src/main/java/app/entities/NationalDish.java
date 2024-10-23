@@ -2,15 +2,13 @@ package app.entities;
 
 import app.DTOs.NationalDishDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Table(name="national_dishes")
-@Getter
-@Setter
 @Entity
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class NationalDish {
 
     @Id
