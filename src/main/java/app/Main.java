@@ -1,15 +1,22 @@
 package app;
 
 
+import app.config.AppConfig;
+import app.config.HibernateConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import jakarta.persistence.EntityManagerFactory;
 
 public class Main {
-    public static void main(String[] args) {
-        //EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("persons");
+    //private static EntityManagerFactory emf;
 
-        // Initialize Javalin app
+    public static void main(String[] args) {
+
+        //AppConfig.startServer(emf);
+        EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("persons");
+
+         //Initialize Javalin app
         Javalin app = Javalin.create().start(7000);
 
 

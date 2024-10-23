@@ -1,6 +1,7 @@
 package app.DTOs;
 
 import app.entities.Country;
+import app.entities.Sight;
 import app.enums.Continents;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class CountryDTO {
     private String nationalAnimal;
     private List<NationalDish> nationalDishes;
     private List<Sight> sightseeingSpots;
+    private List <SightDTO> sightDTO;
 
     public CountryDTO(Country country) {
         this.id = country.getId();
@@ -35,6 +37,17 @@ public class CountryDTO {
         this.nationalAnimal = country.getNationalAnimal();
         this.nationalDishes = country.getNationalDishes().stream().map(NationalDishDTO::new).collect(Collectors.toList());
         this.sightseeingSpots = country.getSightseeingSpots().stream().map(SightsDTO::new).collect(Collectors.toList());
+    }
+
+    public CountryDTO(Country country) {
+        this.id = country.getId();
+        this.name = country.getName();
+        this.population = country.getPopulation();
+        this.continent = country.getContinent();
+        this.currency = country.getCurrency();
+        this.OfficialLanguage = country.getOfficialLanguage();
+        this.nationalAnimal = country.getNationalAnimal();
+        this.sightDTO = SightDTO.toDTOsList(country.getSightseeingSpots());
     }
 
     @JsonIgnore

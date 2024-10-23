@@ -37,8 +37,8 @@ public class AppConfig {
         config.router.apiBuilder(routes.getApiRoutes());
 
         // Security
-        config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
-        config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());
+//        config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
+//        config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());
     }
 
     //Exceptions
