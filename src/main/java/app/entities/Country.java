@@ -1,7 +1,6 @@
 package app.entities;
 
 import app.DTOs.CountryDTO;
-//import app.enums.Continents;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
