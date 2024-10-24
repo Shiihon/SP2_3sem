@@ -1,0 +1,53 @@
+### Retrieve all national dishes
+GET http://localhost:7000/api/national-dishes
+Content-Type: application/json
+
+### Retrieve a plant by its ID
+GET http://localhost:7000/api/national-dishes/2
+Content-Type: application/json
+
+### Add plants
+POST http://localhost:7000/api/national-dishes
+Content-Type: application/json
+
+[
+  {
+    "name": "Spiced Lamb Tagine",
+    "ingredients": "Lamb, apricots, almonds, onions, garlic, Moroccan spices",
+    "description": "A slow-cooked Moroccan dish where tender lamb is simmered with sweet apricots and crunchy almonds in a fragrant blend of Moroccan spices."
+  },
+  {
+    "name": "Paella Valenciana",
+    "ingredients": "Rice, chicken, rabbit, saffron, green beans, tomatoes",
+    "description": "A traditional Spanish rice dish made with a mix of chicken, rabbit, and vegetables, infused with rich saffron flavors."
+  },
+  {
+    "name": "Pho Bo",
+    "ingredients": "Beef, rice noodles, ginger, star anise, basil, lime",
+    "description": "A flavorful Vietnamese beef noodle soup, served with fresh herbs and lime, and slow-cooked to perfection with aromatic spices."
+  },
+  {
+    "name": "Jollof Rice",
+    "ingredients": "Rice, tomatoes, onions, red pepper, chicken, thyme",
+    "description": "A popular West African dish featuring rice cooked in a spicy tomato sauce, often served with grilled chicken or fish."
+  },
+  {
+    "name": "Butter Chicken",
+    "ingredients": "Chicken, butter, tomato puree, cream, garam masala, ginger",
+    "description": "A rich Indian curry made with tender chicken pieces cooked in a creamy tomato sauce with warming spices."
+  }
+]
+
+### Update a national dish
+PUT http://localhost:7000/api/national-dishes/3
+Content-Type: application/json
+
+{
+  "name": "Moussaka",
+  "ingredients": "Eggplant, ground lamb, tomatoes, onions, béchamel sauce, cinnamon",
+  "description": "A classic Greek dish layered with sautéed eggplant, spiced lamb, and rich béchamel sauce, baked to golden perfection."
+}
+
+### Delete a national dish
+DELETE http://localhost:7000/api/national-dishes/4
+Content-Type: application/json

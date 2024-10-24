@@ -20,7 +20,15 @@ public class SightDTO {
         this.id = sight.getId();
         this.title = sight.getTitle();
         this.address = sight.getAddress();
+        this.description = sight.getDescription();
     }
+
+    public SightDTO(String title, String description, String address) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+    }
+
 
 
     public static List<SightDTO> toDTOsList(List<Sight> sights) {

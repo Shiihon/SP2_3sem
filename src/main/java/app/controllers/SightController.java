@@ -1,11 +1,12 @@
 package app.controllers;
 
+import app.dtos.NationalDishDTO;
 import app.dtos.SightDTO;
 import app.config.HibernateConfig;
 import app.daos.SightDAO;
 import app.exceptions.ApiException;
 import io.javalin.http.Context;
-import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class SightController implements Controller {
     private SightDAO sightDAO;
     private SightDTO sightDTO;
 
-    //Refactorer efter Ømers NationalDishController.
 
     public SightController(SightDAO sightDAO) {
         this.sightDAO = sightDAO;
@@ -59,31 +59,51 @@ public class SightController implements Controller {
     @Override
     public void create(Context ctx) {
         try {
-            sightDTO = ctx.bodyAsClass(SightDTO.class);
-            SightDTO newSight = sightDAO.create(sightDTO);
-            ctx.status(201);
-            ctx.json(newSight);
+            SightDTO[] newSights = ctx.bodyAsClass(SightDTO[].class);
+            SightDTO[] savedSights = new SightDTO[newSights.length];
+
+            int i = 0;
+            for (SightDTO sight : newSights) {
+                SightDTO savedDish = sightDAO.create(sight);
+                savedSights[i] = savedDish;
+                i++;
+            }
+            ctx.res().setStatus(201);
+            ctx.json(savedSights, SightDTO[].class);
+
         } catch (Exception e) {
-            ctx.status(500);
-            ctx.result("Creating a Sight faild" + e.getMessage());
+            throw new ApiException(400, e.getMessage());
         }
     }
 
     @Override
     public void update(Context ctx) {
+        try {
+            Long id = Long.parseLong(ctx.pathParam("id"));
+            SightDTO sightDTO = ctx.bodyAsClass(SightDTO.class);
+            sightDTO.setId(id);
 
-        sightDTO = ctx.bodyAsClass(SightDTO.class);
-        SightDTO updatedSight = new SightDTO();
-        sightDTO = sightDAO.update(updatedSight);
-        ctx.status(201);
-        ctx.json(sightDTO);
+            SightDTO updatedSight = sightDAO.update(sightDTO);
+            ctx.res().setStatus(200);
+            ctx.json(updatedSight, SightDTO.class);
+        } catch (EntityNotFoundException e) {
+            throw new ApiException(404, e.getMessage());
+
+        } catch (Exception e) {
+            throw new ApiException(400, e.getMessage());
+        }
+
+
     }
 
     @Override
     public void delete(Context ctx) {
-
-        long sightId = Long.parseLong(ctx.pathParam("id"));
-        sightDAO.delete(sightId);
-        ctx.status(204);
+        try {
+            long sightId = Long.parseLong(ctx.pathParam("id"));
+            sightDAO.delete(sightId);
+            ctx.status(204);
+        } catch (Exception e) {
+            throw new ApiException(400, e.getMessage());
+        }
     }
 }
