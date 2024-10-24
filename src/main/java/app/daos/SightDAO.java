@@ -43,7 +43,6 @@ public class SightDAO implements IDAO<SightDTO>{
 
             Country country = em.find(Country.class, sight.getCountry().getId());
             if (country == null){
-            //ADD exception
             }
             sight.setCountry(country);
             country.addSight(sight);
