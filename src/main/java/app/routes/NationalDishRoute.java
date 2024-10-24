@@ -18,7 +18,7 @@ public class NationalDishRoute {
 
     protected EndpointGroup getRoutes() {
         return () -> {
-            post("/nationalDishes", nationalDishController::create);
+            post("/", nationalDishController::create);
             get("/", nationalDishController::getAll);
             get("/{id}", nationalDishController::getById);
             put("/{id}", nationalDishController::update);

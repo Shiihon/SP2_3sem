@@ -1,4 +1,4 @@
-package app.DTOs;
+package app.dtos;
 
 import app.entities.Sight;
 import com.fasterxml.jackson.annotation.JsonIgnore;

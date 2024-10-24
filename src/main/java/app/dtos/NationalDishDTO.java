@@ -1,4 +1,4 @@
-package app.DTOs;
+package app.dtos;
 
 import app.entities.NationalDish;
 import com.fasterxml.jackson.annotation.JsonIgnore;

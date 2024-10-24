@@ -1,6 +1,6 @@
 package app.entities;
 
-import app.DTOs.SightDTO;
+import app.dtos.SightDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,12 +29,11 @@ public class Sight {
         this.title = sightDTO.getTitle();
         this.address = sightDTO.getAdress();
     }
-
-    public Sight (Long id, String title, String description, String address, Country country) {
-        this.id = id;
+    @Builder
+    public Sight(String title, String description, String address, Country country) {
         this.title = title;
         this.description = description;
         this.address = address;
+        this.country = country;
     }
-
 }

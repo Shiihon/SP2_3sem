@@ -1,6 +1,6 @@
 package app.daos;
 
-import app.DTOs.CountryDTO;
+import app.dtos.CountryDTO;
 import app.entities.Country;
 import app.entities.NationalDish;
 import app.entities.Sight;
@@ -97,9 +97,6 @@ public class CountryDAO implements IDAO<CountryDTO> {
             if (country.getPopulation() != null) {
                 existingCountry.setPopulation(country.getPopulation());
             }
-//            if (country.getContinent() != null) {
-//                existingCountry.setContinent(country.getContinent());
-//            }
             if (country.getCurrency() != null) {
                 existingCountry.setCurrency(country.getCurrency());
             }

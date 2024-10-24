@@ -1,6 +1,6 @@
 package app.entities;
 
-import app.DTOs.NationalDishDTO;
+import app.dtos.NationalDishDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,12 +44,11 @@ public class NationalDish {
         this.description = nationalDishDTO.getDescription();
     }
 
-    public NationalDish(Long id, String name, String ingredients, String description, Country country) {
-        this.id = id;
+    @Builder
+    public NationalDish(String name, String ingredients, String description, Country country) {
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
         this.country = country;
     }
-
 }
