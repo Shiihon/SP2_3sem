@@ -1,6 +1,6 @@
 package app.entities;
 
-import app.DTOs.CountryDTO;
+import app.dtos.CountryDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +20,6 @@ public class Country {
     private Long id;
     private String name;
     private Double population;
-//    private Continents continent;
     private String currency;
     @Column(name = "official_language")
     private String OfficialLanguage;

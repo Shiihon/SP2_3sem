@@ -1,11 +1,10 @@
 package app.controllers;
 
-import app.DTOs.NationalDishDTO;
+import app.dtos.NationalDishDTO;
 import app.daos.NationalDishDAO;
 import app.exceptions.ApiException;
 import io.javalin.http.Context;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 

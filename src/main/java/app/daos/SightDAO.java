@@ -1,6 +1,6 @@
 package app.daos;
 
-import app.DTOs.SightDTO;
+import app.dtos.SightDTO;
 import app.entities.Country;
 import app.entities.Sight;
 import jakarta.persistence.*;
@@ -9,7 +9,6 @@ import java.util.List;
 
 public class SightDAO implements IDAO<SightDTO>{
     private EntityManagerFactory emf;
-    private Sight sight = new Sight();
 
     public SightDAO(EntityManagerFactory emf) {
         this.emf = emf;
