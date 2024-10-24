@@ -6,9 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -22,38 +21,39 @@ public class Country {
     private Double population;
     private String currency;
     @Column(name = "official_language")
-    private String OfficialLanguage;
+    private String officialLanguage;
     @Column(name = "national_animal")
     private String nationalAnimal;
     @Column(name = "national_dishes")
     @OneToMany(mappedBy = "country", orphanRemoval = true)
     private List<NationalDish> nationalDishes;
     @OneToMany(mappedBy = "country", orphanRemoval = true)
-    private List<Sight> SightseeingSpots;
+    private List<Sight> sights;
 
+
+    public Country(CountryDTO countryDTO) {
+        this.id = countryDTO.getId();
+        this.name = countryDTO.getName();
+        this.population = countryDTO.getPopulation();
+        this.currency = countryDTO.getCurrency();
+        this.officialLanguage = countryDTO.getOfficialLanguage();
+        this.nationalAnimal = countryDTO.getNationalAnimal();
+        this.nationalDishes = countryDTO.getNationalDishDTOS().stream().map(NationalDish::new).collect(Collectors.toList());
+        this.sights = countryDTO.getSightDTOS().stream().map(Sight::new).collect(Collectors.toList());
+    }
     @Builder
-    public Country(Long id, String name, Double population, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sight> sightseeingSpots) {
-        this.id = id;
+    public Country(String name, Double population, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sight> sights) {
         this.name = name;
         this.population = population;
         this.currency = currency;
-        this.OfficialLanguage = officialLanguage;
+        this.officialLanguage = officialLanguage;
         this.nationalAnimal = nationalAnimal;
-        this.nationalDishes = Objects.requireNonNullElse(nationalDishes, new ArrayList<>());
-        this.SightseeingSpots = Objects.requireNonNullElse(sightseeingSpots, new ArrayList<>());
-    }
-
-    public Country(CountryDTO countryDTO){
-    this.id = countryDTO.getId();
-    this.name = countryDTO.getName();
-    this.population = countryDTO.getPopulation();
-    this.currency = countryDTO.getCurrency();
-    this.OfficialLanguage = countryDTO.getOfficialLanguage();
-    this.nationalAnimal = countryDTO.getNationalAnimal();
+        this.nationalDishes = nationalDishes;
+        this.sights = sights;
     }
 
     public void addSight(Sight sight) {
-        SightseeingSpots.add(sight);
+        sights.add(sight);
         sight.setCountry(this);
     }
 
