@@ -1,4 +1,4 @@
-package app.DTOs;
+package app.dtos;
 
 import app.entities.NationalDish;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,15 +47,5 @@ public class NationalDishDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, ingredients, description);
-    }
-
-    @JsonIgnore
-    public NationalDish getAsEntity() {
-        NationalDish nationalDish = new NationalDish();
-        nationalDish.setId(this.id);
-        nationalDish.setName(this.name);
-        nationalDish.setIngredients(this.ingredients);
-        nationalDish.setDescription(this.description);
-        return nationalDish;
     }
 }

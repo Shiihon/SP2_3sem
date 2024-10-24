@@ -1,6 +1,6 @@
 package app.daos;
 
-import app.DTOs.NationalDishDTO;
+import app.dtos.NationalDishDTO;
 import app.entities.NationalDish;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -32,7 +32,7 @@ public class NationalDishDAO implements IDAO<NationalDishDTO> {
     @Override
     public List<NationalDishDTO> getAll() {
         try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<NationalDishDTO> query = em.createQuery("SELECT new app.DTOs.NationalDishDTO(n) FROM NationalDish n", NationalDishDTO.class);
+            TypedQuery<NationalDishDTO> query = em.createQuery("SELECT new app.dtos.NationalDishDTO(n) FROM NationalDish n", NationalDishDTO.class);
             return query.getResultList();
         } catch (Exception e) {
             throw new RollbackException("Could not get all national dishes", e);

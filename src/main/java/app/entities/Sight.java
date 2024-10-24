@@ -1,12 +1,11 @@
 package app.entities;
 
-import app.DTOs.SightDTO;
+import app.dtos.SightDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
 @Data
-@Builder
 @Entity
 @Table(name = "sight")
 public class Sight {
@@ -24,17 +23,17 @@ public class Sight {
     @JoinColumn(name = "country_id")
     private Country country;
 
+
     public Sight(SightDTO sightDTO){
         this.id = sightDTO.getId();
         this.title = sightDTO.getTitle();
-        this.address = sightDTO.getAdress();
+        this.address = sightDTO.getAddress();
     }
-
-    public Sight (Long id, String title, String description, String address, Country country) {
-        this.id = id;
+    @Builder
+    public Sight(String title, String description, String address, Country country) {
         this.title = title;
         this.description = description;
         this.address = address;
+        this.country = country;
     }
-
 }

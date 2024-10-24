@@ -1,6 +1,6 @@
 package app.daos;
 
-import app.DTOs.CountryDTO;
+import app.dtos.CountryDTO;
 import app.entities.Country;
 import app.entities.NationalDish;
 import app.entities.Sight;
@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CountryDAO implements IDAO<CountryDTO> {
     EntityManagerFactory emf;
@@ -31,9 +32,9 @@ public class CountryDAO implements IDAO<CountryDTO> {
     @Override
     public List<CountryDTO> getAll() {
         try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<Country> query = em.createQuery("SELECT e FROM Country e", Country.class);
+            TypedQuery<CountryDTO> query = em.createQuery("SELECT new app.DTOs.CountryDTO(c) FROM Country c", CountryDTO.class);
 
-            return query.getResultStream().map(CountryDTO::new).toList();
+            return query.getResultStream().collect(Collectors.toList());
 
         } catch (RollbackException e) {
             throw new RollbackException("Could not get all countries", e);
@@ -42,7 +43,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public CountryDTO create(CountryDTO countryDTO) {
-        Country country = countryDTO.getAsEntity();
+        Country country = new Country(countryDTO);
 
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -61,7 +62,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
             }
             // Handle Sightseeing
             List<Sight> sightseeingEntities = new ArrayList<>();
-            for (Sight sightseeing : country.getSightseeingSpots()) {
+            for (Sight sightseeing : country.getSights()) {
                 Sight foundSight = em.find(Sight.class, sightseeing.getId()); // Check if sightseeing already exists
 
                 if (foundSight != null) {
@@ -72,7 +73,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
                 }
                 sightseeing.setCountry(country); // Associate sightseeing with country
             }
-            country.setSightseeingSpots(sightseeingEntities);
+            country.setSights(sightseeingEntities);
             country.setNationalDishes(nationalDishEntities);
 
             em.persist(country);
@@ -83,7 +84,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public CountryDTO update(CountryDTO countryDTO) {
-        Country country = countryDTO.getAsEntity();
+        Country country = new Country(countryDTO);
         try (EntityManager em = emf.createEntityManager()) {
             Country existingCountry = em.find(Country.class, country.getId());
             if (existingCountry == null) {
@@ -97,9 +98,6 @@ public class CountryDAO implements IDAO<CountryDTO> {
             if (country.getPopulation() != null) {
                 existingCountry.setPopulation(country.getPopulation());
             }
-//            if (country.getContinent() != null) {
-//                existingCountry.setContinent(country.getContinent());
-//            }
             if (country.getCurrency() != null) {
                 existingCountry.setCurrency(country.getCurrency());
             }
@@ -112,8 +110,8 @@ public class CountryDAO implements IDAO<CountryDTO> {
             if (country.getNationalDishes() != null) {
                 existingCountry.getNationalDishes().addAll(country.getNationalDishes());
             }
-            if (country.getSightseeingSpots() != null) {
-                existingCountry.getSightseeingSpots().addAll(country.getSightseeingSpots());
+            if (country.getSights() != null) {
+                existingCountry.getSights().addAll(country.getSights());
             }
 
             em.getTransaction().commit();
