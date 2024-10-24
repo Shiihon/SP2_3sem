@@ -12,13 +12,13 @@ public class Routes {
   
     public Routes(EntityManagerFactory emf) {
         nationalDishRoute = new NationalDishRoute(emf);
-        sightRoute = new SightRoute()
+        sightRoute = new SightRoute(emf);
     }
 
     public EndpointGroup getApiRoutes() {
         return () -> {
-            path("/nationalDishes", nationalDishRoute.getRoutes());
-            path("/", sightRoute.addSightRoutes());
+            path("/national-dishes", nationalDishRoute.getRoutes());
+            path("/sights", sightRoute.addSightRoutes());
         };
     }
 }

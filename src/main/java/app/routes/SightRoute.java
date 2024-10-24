@@ -1,6 +1,5 @@
 package app.routes;
 
-import app.config.HibernateConfig;
 import app.controllers.SightController;
 import app.daos.SightDAO;
 import io.javalin.apibuilder.EndpointGroup;

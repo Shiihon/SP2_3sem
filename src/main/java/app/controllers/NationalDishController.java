@@ -10,7 +10,6 @@ import java.util.List;
 
 public class NationalDishController implements Controller {
 
-    private final Logger log = LoggerFactory.getLogger(NationalDishController.class);
     private final NationalDishDAO nationalDishDAO;
 
     public NationalDishController(NationalDishDAO nationalDishDAO) {
@@ -27,14 +26,23 @@ public class NationalDishController implements Controller {
             ctx.res().setStatus(200);
             ctx.json(dishes, NationalDishDTO.class);
         } catch (ApiException e) {
-            log.error("404 {}", e.getMessage());
             throw new ApiException(404, e.getMessage());
         }
     }
 
     @Override
     public void getById(Context ctx) {
-
+        try {
+            // request
+            Long id = Long.parseLong(ctx.pathParam("id"));
+            // DTO
+            NationalDishDTO nationalDishDTO = nationalDishDAO.getById(id);
+            // response
+            ctx.res().setStatus(200);
+            ctx.json(nationalDishDTO, NationalDishDTO.class);
+        } catch (Exception e) {
+            throw new ApiException(404, e.getMessage());
+        }
     }
 
     @Override
@@ -52,7 +60,6 @@ public class NationalDishController implements Controller {
             ctx.res().setStatus(201);
             ctx.json(savedDishes, NationalDishDTO[].class);
         } catch (Exception e) {
-            log.error("400 {}", e.getMessage());
             throw new ApiException(400, e.getMessage());
         }
     }
@@ -60,11 +67,18 @@ public class NationalDishController implements Controller {
     @Override
     public void update(Context ctx) {
         try {
-            NationalDishDTO nationalDishDTO = nationalDishDAO.update(ctx.bodyAsClass(NationalDishDTO.class));
+            Long id = Long.parseLong(ctx.pathParam("id"));
+            NationalDishDTO nationalDishDTO = ctx.bodyAsClass(NationalDishDTO.class);
+            nationalDishDTO.setId(id);
+
+            NationalDishDTO updatedNationalDishDTO = nationalDishDAO.update(nationalDishDTO);
             ctx.res().setStatus(200);
-            ctx.json(nationalDishDTO, NationalDishDTO.class);
-        } catch (Exception e) {
-            log.error("400 {}", e.getMessage());
+            ctx.json(updatedNationalDishDTO, NationalDishDTO.class);
+
+        } catch (EntityNotFoundException e){
+            throw new ApiException(404, e.getMessage());
+
+        }  catch (Exception e) {
             throw new ApiException(400, e.getMessage());
         }
     }
@@ -76,7 +90,6 @@ public class NationalDishController implements Controller {
             nationalDishDAO.delete(id);
             ctx.res().setStatus(204);
         } catch (Exception e) {
-            log.error("400 {}", e.getMessage());
             throw new ApiException(400, e.getMessage());
         }
     }

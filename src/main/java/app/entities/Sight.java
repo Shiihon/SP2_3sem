@@ -6,7 +6,6 @@ import lombok.*;
 
 @NoArgsConstructor
 @Data
-@Builder
 @Entity
 @Table(name = "sight")
 public class Sight {
@@ -24,10 +23,11 @@ public class Sight {
     @JoinColumn(name = "country_id")
     private Country country;
 
+
     public Sight(SightDTO sightDTO){
         this.id = sightDTO.getId();
         this.title = sightDTO.getTitle();
-        this.address = sightDTO.getAdress();
+        this.address = sightDTO.getAddress();
     }
     @Builder
     public Sight(String title, String description, String address, Country country) {
