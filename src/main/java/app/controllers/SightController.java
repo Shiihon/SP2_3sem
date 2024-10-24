@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.dtos.NationalDishDTO;
 import app.dtos.SightDTO;
-import app.config.HibernateConfig;
 import app.daos.SightDAO;
 import app.exceptions.ApiException;
 import io.javalin.http.Context;

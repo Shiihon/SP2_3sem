@@ -9,16 +9,19 @@ public class Routes {
 
     private NationalDishRoute nationalDishRoute;
     private SightRoute sightRoute;
+    private CountryRoute countryRoute;
   
     public Routes(EntityManagerFactory emf) {
         nationalDishRoute = new NationalDishRoute(emf);
         sightRoute = new SightRoute(emf);
+        countryRoute = new CountryRoute(emf);
     }
 
     public EndpointGroup getApiRoutes() {
         return () -> {
             path("/national-dishes", nationalDishRoute.getRoutes());
             path("/sights", sightRoute.addSightRoutes());
+            path("/countries", countryRoute.getCountryRoutes());
         };
     }
 }
