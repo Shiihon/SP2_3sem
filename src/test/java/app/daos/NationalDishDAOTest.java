@@ -71,13 +71,30 @@ class NationalDishDAOTest {
 
     @Test
     void create() {
+        NationalDishDTO dish = new NationalDishDTO("New Dish", "New Description", "New Image");
+        dish = nationalDishDAO.create(dish);
+        assertNotNull(dish.getId());
+        assertEquals(6, nationalDishDAO.getAll().size());
+        assertThat(nationalDishDAO.getAll(), hasItem(dish));
+        assertThat(nationalDishDAO.getAll(), containsInAnyOrder(new NationalDishDTO(n1), new NationalDishDTO(n2), new NationalDishDTO(n3), new NationalDishDTO(n4), new NationalDishDTO(n5), dish));
     }
 
     @Test
     void update() {
+        NationalDishDTO dish = nationalDishDAO.getById(4L);
+        dish.setName("Updated Dish");
+        dish.setDescription("Updated Description");
+        dish.setIngredients("Updated Ingredients");
+        dish = nationalDishDAO.update(dish);
+        assertThat(dish.getName(), is("Updated Dish"));
+        assertThat(dish.getDescription(), is("Updated Description"));
+        assertThat(dish.getIngredients(), is("Updated Ingredients"));
     }
 
     @Test
     void delete() {
+        nationalDishDAO.delete(2L);
+        assertEquals(4, nationalDishDAO.getAll().size());
+        assertThat(nationalDishDAO.getAll(), containsInAnyOrder(new NationalDishDTO(n1), new NationalDishDTO(n3), new NationalDishDTO(n4), new NationalDishDTO(n5)));
     }
 }
