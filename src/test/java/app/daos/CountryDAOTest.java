@@ -4,9 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityNotFoundException;
 import app.config.HibernateConfig;
-import app.DTOs.CountryDTO;
-import app.DTOs.NationalDishDTO;
-import app.DTOs.SightDTO;
+import app.dtos.CountryDTO;
+import app.dtos.NationalDishDTO;
+import app.dtos.SightDTO;
 import app.entities.Country;
 import app.entities.NationalDish;
 import app.entities.Sight;
@@ -46,9 +46,9 @@ class CountryDAOTest {
         entityListOfCountries.get(1).setNationalDishes(List.of(entitityListOfNationalDishes.get(1)));
         entityListOfCountries.get(2).setNationalDishes(List.of(entitityListOfNationalDishes.get(2)));
 
-        entityListOfCountries.get(0).setSightseeingSpots(List.of(entitityListOfSights.get(0)));
-        entityListOfCountries.get(1).setSightseeingSpots(List.of(entitityListOfSights.get(1)));
-        entityListOfCountries.get(2).setSightseeingSpots(List.of(entitityListOfSights.get(2)));
+        entityListOfCountries.get(0).setSights(List.of(entitityListOfSights.get(0)));
+        entityListOfCountries.get(1).setSights(List.of(entitityListOfSights.get(1)));
+        entityListOfCountries.get(2).setSights(List.of(entitityListOfSights.get(2)));
 
         entitityListOfNationalDishes.get(0).setCountry(entityListOfCountries.get(0));
         entitityListOfNationalDishes.get(1).setCountry(entityListOfCountries.get(1));
