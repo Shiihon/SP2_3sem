@@ -1,7 +1,6 @@
 package app.entities;
 
 import app.DTOs.CountryDTO;
-//import app.enums.Continents;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -28,28 +27,27 @@ public class Country {
     @Column(name = "national_animal")
     private String nationalAnimal;
     @Column(name = "national_dishes")
-//    @OneToMany(mappedBy = "country", orphanRemoval = true)
-//    private List<NationalDish> nationalDishes;
+    @OneToMany(mappedBy = "country", orphanRemoval = true)
+    private List<NationalDish> nationalDishes;
     @OneToMany(mappedBy = "country", orphanRemoval = true)
     private List<Sight> SightseeingSpots;
 
-//    @Builder
-//    public Country(Long id, String name, Double population, Continents continent, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sights> sightseeingSpots) {
-//        this.id = id;
-//        this.name = name;
-//        this.population = population;
-//        this.continent = continent;
-//        this.currency = currency;
-//        this.OfficialLanguage = officialLanguage;
-//        this.nationalAnimal = nationalAnimal;
-////        this.nationalDishes = Objects.requireNonNullElse(NationalDish, new ArrayList<>());
-////        this.SightseeingSpots = Objects.requireNonNullElse(Sight, new ArrayList<>());
-//    }
+    @Builder
+    public Country(Long id, String name, Double population, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sight> sightseeingSpots) {
+        this.id = id;
+        this.name = name;
+        this.population = population;
+        this.currency = currency;
+        this.OfficialLanguage = officialLanguage;
+        this.nationalAnimal = nationalAnimal;
+        this.nationalDishes = Objects.requireNonNullElse(nationalDishes, new ArrayList<>());
+        this.SightseeingSpots = Objects.requireNonNullElse(sightseeingSpots, new ArrayList<>());
+    }
+
     public Country(CountryDTO countryDTO){
     this.id = countryDTO.getId();
     this.name = countryDTO.getName();
     this.population = countryDTO.getPopulation();
-//    this.continent = countryDTO.getContinent();
     this.currency = countryDTO.getCurrency();
     this.OfficialLanguage = countryDTO.getOfficialLanguage();
     this.nationalAnimal = countryDTO.getNationalAnimal();
@@ -59,6 +57,12 @@ public class Country {
         SightseeingSpots.add(sight);
         sight.setCountry(this);
     }
+
+    public void addNationalDish(NationalDish nationalDish) {
+        nationalDishes.add(nationalDish);
+        nationalDish.setCountry(this);
+    }
 }
+
 
 

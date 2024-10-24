@@ -2,14 +2,11 @@ package app.entities;
 
 import app.DTOs.SightDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 @Entity
 @Table(name = "sight")
 public class Sight {
@@ -21,7 +18,7 @@ public class Sight {
     @Column (name = "description", length = 500)
     private String description;
     @Column (name = "adress", nullable = false)
-    private String adress;
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
@@ -30,7 +27,14 @@ public class Sight {
     public Sight(SightDTO sightDTO){
         this.id = sightDTO.getId();
         this.title = sightDTO.getTitle();
-        this.adress = sightDTO.getAdress();
+        this.address = sightDTO.getAdress();
+    }
+
+    public Sight (Long id, String title, String description, String address, Country country) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.address = address;
     }
 
 }

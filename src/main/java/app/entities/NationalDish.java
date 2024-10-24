@@ -2,14 +2,13 @@ package app.entities;
 
 import app.DTOs.NationalDishDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Table(name="national_dishes")
-@Getter
 @Entity
+@Data
 @NoArgsConstructor
+@Builder
 public class NationalDish {
 
     @Id
@@ -43,6 +42,14 @@ public class NationalDish {
         this.name = nationalDishDTO.getName();
         this.ingredients = nationalDishDTO.getIngredients();
         this.description = nationalDishDTO.getDescription();
+    }
+
+    public NationalDish(Long id, String name, String ingredients, String description, Country country) {
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.description = description;
+        this.country = country;
     }
 
 }

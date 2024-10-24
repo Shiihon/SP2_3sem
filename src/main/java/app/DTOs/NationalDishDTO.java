@@ -1,15 +1,14 @@
 package app.DTOs;
 
 import app.entities.NationalDish;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import java.util.Objects;
 
-@Getter
-@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class NationalDishDTO {
 
     private Long id;
@@ -17,7 +16,7 @@ public class NationalDishDTO {
     private String ingredients;
     private String description;
 
-    public NationalDishDTO(NationalDish nationalDish){
+    public NationalDishDTO(NationalDish nationalDish) {
         this.id = nationalDish.getId();
         this.name = nationalDish.getName();
         this.ingredients = nationalDish.getIngredients();
@@ -48,5 +47,15 @@ public class NationalDishDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, ingredients, description);
+    }
+
+    @JsonIgnore
+    public NationalDish getAsEntity() {
+        NationalDish nationalDish = new NationalDish();
+        nationalDish.setId(this.id);
+        nationalDish.setName(this.name);
+        nationalDish.setIngredients(this.ingredients);
+        nationalDish.setDescription(this.description);
+        return nationalDish;
     }
 }

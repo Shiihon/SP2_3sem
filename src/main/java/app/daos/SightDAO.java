@@ -70,8 +70,8 @@ public class SightDAO implements IDAO<SightDTO>{
             if(sight.getDescription() != null){
                 existingSight.setDescription(sight.getDescription());
             }
-            if(sight.getAdress() != null){
-                existingSight.setAdress(sight.getAdress());
+            if(sight.getAddress() != null){
+                existingSight.setAddress(sight.getAddress());
             }
             if(sight.getCountry() != null){
                 existingSight.setCountry(sight.getCountry());
