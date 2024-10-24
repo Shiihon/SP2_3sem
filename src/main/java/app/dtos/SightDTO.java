@@ -22,6 +22,7 @@ public class SightDTO {
         this.address = sight.getAddress();
     }
 
+
     public static List<SightDTO> toDTOsList(List<Sight> sights) {
         return sights.stream().map(SightDTO::new).toList();
     }
