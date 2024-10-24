@@ -50,15 +50,18 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
             List<NationalDish> nationalDishEntities = new ArrayList<>();
             for (NationalDish nationalDish : country.getNationalDishes()) {
-                NationalDish foundDish = em.find(NationalDish.class, nationalDish.getId()); //checking if room already exists
+                NationalDish foundDish = em.find(NationalDish.class, nationalDish.getId());
 
                 if (foundDish != null) {
                     nationalDishEntities.add(foundDish);
+                    foundDish.setCountry(country);
                 } else {
+                    nationalDish.setCountry(country);
                     em.persist(nationalDish);
                     nationalDishEntities.add(nationalDish);
                 }
                 nationalDish.setCountry(country);
+
             }
             // Handle Sightseeing
             List<Sight> sightseeingEntities = new ArrayList<>();
@@ -67,7 +70,9 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
                 if (foundSight != null) {
                     sightseeingEntities.add(foundSight);
+                    foundSight.setCountry(country);
                 } else {
+                    sightseeing.setCountry(country);
                     em.persist(sightseeing);
                     sightseeingEntities.add(sightseeing);
                 }
@@ -78,8 +83,11 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
             em.persist(country);
             em.getTransaction().commit();
+            return new CountryDTO(country);
+
+        } catch (IllegalArgumentException | RollbackException e) {
+            throw new RollbackException("Could not create country", e);
         }
-        return new CountryDTO(country);
     }
 
     @Override
