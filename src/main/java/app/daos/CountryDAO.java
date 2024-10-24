@@ -32,7 +32,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
     @Override
     public List<CountryDTO> getAll() {
         try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<CountryDTO> query = em.createQuery("SELECT new app.DTOs.CountryDTO(c) FROM Country c", CountryDTO.class);
+            TypedQuery<CountryDTO> query = em.createQuery("SELECT new app.dtos.CountryDTO(c) FROM Country c", CountryDTO.class);
 
             return query.getResultStream().collect(Collectors.toList());
 
