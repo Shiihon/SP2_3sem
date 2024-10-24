@@ -5,9 +5,6 @@ import app.dtos.NationalDishDTO;
 import app.dtos.SightDTO;
 import jakarta.persistence.EntityManagerFactory;
 import app.config.HibernateConfig;
-import app.dtos.CountryDTO;
-import app.dtos.NationalDishDTO;
-import app.dtos.SightDTO;
 import app.entities.Country;
 import app.entities.NationalDish;
 import app.entities.Sight;
@@ -21,7 +18,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CountryDAOTest {
     private static EntityManagerFactory emfTest;
