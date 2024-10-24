@@ -14,7 +14,7 @@ public class Sight {
     private Long id;
     @Column (name = "title", nullable = false)
     private String title;
-    @Column (name = "description", length = 500)
+    @Column (name = "description")
     private String description;
     @Column (name = "adress", nullable = false)
     private String address;
@@ -28,6 +28,7 @@ public class Sight {
         this.id = sightDTO.getId();
         this.title = sightDTO.getTitle();
         this.address = sightDTO.getAddress();
+        this.description = sightDTO.getDescription();
     }
     @Builder
     public Sight(String title, String description, String address, Country country) {
