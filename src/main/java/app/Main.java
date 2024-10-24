@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("countries");
+        EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("country");
         AppConfig.startServer(emf);
 
     }
