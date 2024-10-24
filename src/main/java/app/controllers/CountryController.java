@@ -5,10 +5,15 @@ import app.dtos.CountryDTO;
 import app.exceptions.ApiException;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class CountryController implements Controller {
+    private static final Logger log = LoggerFactory.getLogger(CountryController.class);
     private final CountryDAO countryDAO;
 
     public CountryController(CountryDAO countryDAO) {
@@ -112,7 +117,10 @@ public class CountryController implements Controller {
             Long id = Long.parseLong(ctx.pathParam("id"));
             countryDAO.delete(id);
 
-            ctx.res().setStatus(204);
+            log.info("Attempting to delete country with ID: {}", id);
+            ctx.status(200);
+            log.info("Setting response JSON for successful deletion");
+            ctx.json(Collections.singletonMap("message", "Test deletion successful"));
 
         } catch (NumberFormatException e) {
             throw new ApiException(400, "Invalid country id");
