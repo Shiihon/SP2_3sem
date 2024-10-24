@@ -1,12 +1,15 @@
 package app.entities;
 
 import app.dtos.CountryDTO;
+import app.dtos.NationalDishDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
@@ -41,6 +44,7 @@ public class Country {
         this.nationalDishes = countryDTO.getNationalDishDTOS().stream().map(NationalDish::new).collect(Collectors.toList());
         this.sights = countryDTO.getSightDTOS().stream().map(Sight::new).collect(Collectors.toList());
     }
+
     @Builder
     public Country(String name, Double population, String currency, String officialLanguage, String nationalAnimal, List<NationalDish> nationalDishes, List<Sight> sights) {
         this.name = name;
@@ -60,6 +64,19 @@ public class Country {
     public void addNationalDish(NationalDish nationalDish) {
         nationalDishes.add(nationalDish);
         nationalDish.setCountry(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country = (Country) o;
+        return Objects.equals(name, country.name) && Objects.equals(population, country.population) && Objects.equals(currency, country.currency) && Objects.equals(officialLanguage, country.officialLanguage) && Objects.equals(nationalAnimal, country.nationalAnimal) && Objects.equals(nationalDishes, country.nationalDishes) && Objects.equals(sights, country.sights);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, population, currency, officialLanguage, nationalAnimal, nationalDishes, sights);
     }
 }
 
