@@ -48,14 +48,4 @@ public class NationalDishDTO {
     public int hashCode() {
         return Objects.hash(id, name, ingredients, description);
     }
-
-    @JsonIgnore
-    public NationalDish getAsEntity() {
-        NationalDish nationalDish = new NationalDish();
-        nationalDish.setId(this.id);
-        nationalDish.setName(this.name);
-        nationalDish.setIngredients(this.ingredients);
-        nationalDish.setDescription(this.description);
-        return nationalDish;
-    }
 }
