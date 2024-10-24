@@ -1,7 +1,9 @@
 package app.daos;
 
-import app.DTOs.CountryDTO;
+import app.dtos.CountryDTO;
 import app.entities.Country;
+import app.entities.NationalDish;
+import app.entities.Sight;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public CountryDTO create(CountryDTO countryDTO) {
-        Country country = countryDTO.getAsEntity();
+        Country country = new Country(countryDTO);
 
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -59,7 +61,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
             }
             // Handle Sightseeing
             List<Sight> sightseeingEntities = new ArrayList<>();
-            for (Sight sightseeing : country.getSightseeingSpots()) {
+            for (Sight sightseeing : country.getSights()) {
                 Sight foundSight = em.find(Sight.class, sightseeing.getId()); // Check if sightseeing already exists
 
                 if (foundSight != null) {
@@ -70,7 +72,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
                 }
                 sightseeing.setCountry(country); // Associate sightseeing with country
             }
-            country.setSightseeingList(sightseeingEntities);
+            country.setSights(sightseeingEntities);
             country.setNationalDishes(nationalDishEntities);
 
             em.persist(country);
@@ -81,7 +83,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public CountryDTO update(CountryDTO countryDTO) {
-        Country country = countryDTO.getAsEntity();
+        Country country = new Country(countryDTO);
         try (EntityManager em = emf.createEntityManager()) {
             Country existingCountry = em.find(Country.class, country.getId());
             if (existingCountry == null) {
@@ -95,9 +97,6 @@ public class CountryDAO implements IDAO<CountryDTO> {
             if (country.getPopulation() != null) {
                 existingCountry.setPopulation(country.getPopulation());
             }
-            if (country.getContinent() != null) {
-                existingCountry.setContinent(country.getContinent());
-            }
             if (country.getCurrency() != null) {
                 existingCountry.setCurrency(country.getCurrency());
             }
@@ -110,8 +109,8 @@ public class CountryDAO implements IDAO<CountryDTO> {
             if (country.getNationalDishes() != null) {
                 existingCountry.getNationalDishes().addAll(country.getNationalDishes());
             }
-            if (country.getSightseeingSpots() != null) {
-                existingCountry.getSightseeingSpots().addAll(country.getSightseeingSpots());
+            if (country.getSights() != null) {
+                existingCountry.getSights().addAll(country.getSights());
             }
 
             em.getTransaction().commit();
@@ -124,19 +123,19 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public void delete(Long id) {
-        try(EntityManager em = emf.createEntityManager()) {
-        Country country = em.find(Country.class, id);
+        try (EntityManager em = emf.createEntityManager()) {
+            Country country = em.find(Country.class, id);
 
-        if (country == null) {
-            throw new EntityNotFoundException("Country not found");
+            if (country == null) {
+                throw new EntityNotFoundException("Country not found");
+            }
+
+            em.getTransaction().begin();
+            em.remove(country);
+            em.getTransaction().commit();
+
+        } catch (RollbackException e) {
+            throw new RollbackException(String.format("Unable to delete country, with id: %d : %s", id, e.getMessage()));
         }
-
-        em.getTransaction().begin();
-        em.remove(country);
-        em.getTransaction().commit();
-
-    } catch (RollbackException e) {
-        throw new RollbackException(String.format("Unable to delete country, with id: %d : %s", id, e.getMessage()));
-    }
     }
 }

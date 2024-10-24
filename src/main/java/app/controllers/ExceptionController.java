@@ -13,14 +13,6 @@ import java.util.Map;
 public class ExceptionController {
     private final Logger log = LoggerFactory.getLogger(ExceptionController.class);
 
-//    --------------------------OLD APIEXCEPTIONHANDLER CODE------------------------------------
-//    public void apiExceptionHandler(ApiException e, Context ctx) {
-//        log.error("{} {}", e.getStatusCode(), e.getMessage());
-//        ctx.status(e.getStatusCode());
-//        ctx.json(new Message(e.getStatusCode(), e.getMessage()));
-//    }
-// ---------------------------------------------------------------------------------------------
-
     public void exceptionHandler(Exception e, Context ctx) {
         log.error("{} {}", 400, e.getMessage());
         ctx.status(400);

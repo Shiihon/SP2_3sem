@@ -3,19 +3,22 @@ package app.routes;
 import io.javalin.apibuilder.EndpointGroup;
 import jakarta.persistence.EntityManagerFactory;
 
-public class Routes {
-//    private HotelRoutes hotelRoutes;
-//    private RoomRoutes roomRoutes;
+import static io.javalin.apibuilder.ApiBuilder.path;
 
+public class Routes {
+
+    private NationalDishRoute nationalDishRoute;
+    private SightRoute sightRoute;
+  
     public Routes(EntityManagerFactory emf) {
-//        hotelRoutes = new HotelRoutes(emf);
+        nationalDishRoute = new NationalDishRoute(emf);
+        sightRoute = new SightRoute(emf);
     }
 
     public EndpointGroup getApiRoutes() {
         return () -> {
-//            path("/hotel", hotelRoutes.getHotelRoutes());
-//            path("/room", roomRoutes.getRoomRoutes());
-//            path("/", securityRoutes.getSecurityRoutes()); EXAMPLES
+            path("/national-dishes", nationalDishRoute.getRoutes());
+            path("/sights", sightRoute.addSightRoutes());
         };
     }
 }
