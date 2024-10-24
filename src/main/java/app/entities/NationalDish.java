@@ -4,7 +4,7 @@ import app.dtos.NationalDishDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name="national_dishes")
+@Table(name="national_dish")
 @Entity
 @Data
 @NoArgsConstructor

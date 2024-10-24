@@ -132,8 +132,15 @@ public class Populator {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.createQuery("DELETE FROM " + entityClass.getSimpleName()).executeUpdate();
+
+            if (entityClass.getSimpleName().equals("NationalDish")) {
+                em.createNativeQuery("ALTER SEQUENCE national_dish_id_seq RESTART WITH 1").executeUpdate();
+            } else {
+                em.createNativeQuery("ALTER SEQUENCE " + entityClass.getSimpleName() + "_id_seq RESTART WITH 1").executeUpdate();
+            }
             em.getTransaction().commit();
         }
     }
+
 }
 
