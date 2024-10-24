@@ -41,8 +41,16 @@ public class Country {
         this.currency = countryDTO.getCurrency();
         this.officialLanguage = countryDTO.getOfficialLanguage();
         this.nationalAnimal = countryDTO.getNationalAnimal();
-        this.nationalDishes = countryDTO.getNationalDishDTOS().stream().map(NationalDish::new).collect(Collectors.toList());
-        this.sights = countryDTO.getSightDTOS().stream().map(Sight::new).collect(Collectors.toList());
+//        this.nationalDishes = countryDTO.getNationalDishDTOS().stream().map(NationalDish::new).collect(Collectors.toList());
+//        this.sights = countryDTO.getSightDTOS().stream().map(Sight::new).collect(Collectors.toList());
+        // Check for null lists to avoid NullPointerException
+        this.nationalDishes = countryDTO.getNationalDishDTOS() != null ?
+                countryDTO.getNationalDishDTOS().stream().map(NationalDish::new).collect(Collectors.toList()) :
+                new ArrayList<>();
+
+        this.sights = countryDTO.getSightDTOS() != null ?
+                countryDTO.getSightDTOS().stream().map(Sight::new).collect(Collectors.toList()) :
+                new ArrayList<>();
     }
 
     @Builder
