@@ -8,7 +8,6 @@ import lombok.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Builder
 public class NationalDish {
 
     @Id
@@ -16,26 +15,18 @@ public class NationalDish {
     @Column(nullable = false, unique = true)
     private Long id;
 
-    @Setter
     @Column(nullable = false)
     private String name;
 
-    @Setter
     @Column(nullable = false)
     private String ingredients;
 
-    @Setter
     @Column(nullable = false)
     private String description;
 
     @ManyToOne
-    @JoinTable(
-            name = "notional_dish_country",
-            joinColumns = @JoinColumn(name = "national_dish_id"),
-            inverseJoinColumns = @JoinColumn(name = "country_id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"national_dish_id", "country_id"})
-    )
     private Country country;
+
 
     public NationalDish(NationalDishDTO nationalDishDTO) {
         this.id = nationalDishDTO.getId();

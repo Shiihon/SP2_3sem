@@ -42,7 +42,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public CountryDTO create(CountryDTO countryDTO) {
-        Country country = countryDTO.getAsEntity();
+        Country country = new Country(countryDTO);
 
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -61,7 +61,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
             }
             // Handle Sightseeing
             List<Sight> sightseeingEntities = new ArrayList<>();
-            for (Sight sightseeing : country.getSightseeingSpots()) {
+            for (Sight sightseeing : country.getSights()) {
                 Sight foundSight = em.find(Sight.class, sightseeing.getId()); // Check if sightseeing already exists
 
                 if (foundSight != null) {
@@ -72,7 +72,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
                 }
                 sightseeing.setCountry(country); // Associate sightseeing with country
             }
-            country.setSightseeingSpots(sightseeingEntities);
+            country.setSights(sightseeingEntities);
             country.setNationalDishes(nationalDishEntities);
 
             em.persist(country);
@@ -83,7 +83,7 @@ public class CountryDAO implements IDAO<CountryDTO> {
 
     @Override
     public CountryDTO update(CountryDTO countryDTO) {
-        Country country = countryDTO.getAsEntity();
+        Country country = new Country(countryDTO);
         try (EntityManager em = emf.createEntityManager()) {
             Country existingCountry = em.find(Country.class, country.getId());
             if (existingCountry == null) {
@@ -109,8 +109,8 @@ public class CountryDAO implements IDAO<CountryDTO> {
             if (country.getNationalDishes() != null) {
                 existingCountry.getNationalDishes().addAll(country.getNationalDishes());
             }
-            if (country.getSightseeingSpots() != null) {
-                existingCountry.getSightseeingSpots().addAll(country.getSightseeingSpots());
+            if (country.getSights() != null) {
+                existingCountry.getSights().addAll(country.getSights());
             }
 
             em.getTransaction().commit();
