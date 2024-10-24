@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CountryDAO implements IDAO<CountryDTO> {
     EntityManagerFactory emf;
@@ -31,9 +32,9 @@ public class CountryDAO implements IDAO<CountryDTO> {
     @Override
     public List<CountryDTO> getAll() {
         try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<Country> query = em.createQuery("SELECT e FROM Country e", Country.class);
+            TypedQuery<CountryDTO> query = em.createQuery("SELECT new app.DTOs.CountryDTO(c) FROM Country c", CountryDTO.class);
 
-            return query.getResultStream().map(CountryDTO::new).toList();
+            return query.getResultStream().collect(Collectors.toList());
 
         } catch (RollbackException e) {
             throw new RollbackException("Could not get all countries", e);
