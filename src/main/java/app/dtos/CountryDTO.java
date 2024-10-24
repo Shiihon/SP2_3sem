@@ -22,7 +22,9 @@ public class CountryDTO {
     private String officialLanguage;
     @JsonProperty("national_animal")
     private String nationalAnimal;
+    @JsonProperty("national-dishes")
     private List<NationalDishDTO> nationalDishDTOS;
+    @JsonProperty("sights")
     private List<SightDTO> sightDTOS;
 
     public CountryDTO(Country country) {
