@@ -23,7 +23,6 @@ public class Sight {
     @JoinColumn(name = "country_id")
     private Country country;
 
-
     public Sight(SightDTO sightDTO){
         this.id = sightDTO.getId();
         this.title = sightDTO.getTitle();

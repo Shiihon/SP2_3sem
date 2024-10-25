@@ -1,7 +1,6 @@
 package app.dtos;
 
 import app.entities.NationalDish;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.Objects;
