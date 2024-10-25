@@ -20,7 +20,7 @@ public class Routes {
     public EndpointGroup getApiRoutes() {
         return () -> {
             path("/national-dishes", nationalDishRoute.getRoutes());
-            path("/sights", sightRoute.addSightRoutes());
+            path("/sights", sightRoute.getSightRoutes());
             path("/countries", countryRoute.getCountryRoutes());
         };
     }

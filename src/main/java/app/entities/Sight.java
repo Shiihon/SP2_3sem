@@ -16,7 +16,7 @@ public class Sight {
     private String title;
     @Column (name = "description")
     private String description;
-    @Column (name = "adress", nullable = false)
+    @Column (name = "address")
     private String address;
 
     @ManyToOne

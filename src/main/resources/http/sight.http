@@ -1,17 +1,68 @@
 ###GET ALL Sights
-GET http://localhost:7000/api/sight
+GET http://localhost:7000/api/sights
+Content-Type: application/json
 
 ###GET Sight by ID
-GET http://localhost:7000/api/sight/5
+GET http://localhost:7000/api/sights/5
+Content-Type: application/json
 
 ###POST Creating a Sights
-POST http://localhost:7000/api/sight
+POST http://localhost:7000/api/sights
 Content-Type: application/json
+
+[
+  {
+    "title": "Eiffel Tower",
+    "description": "The Eiffel Tower is an iron lattice tower in Paris, known worldwide as a symbol of France.",
+    "address": "Champ de Mars, Paris, France"
+  },
+  {
+    "title": "Great Wall of China",
+    "description": "An ancient series of walls and fortifications, totaling more than 13,000 miles, located in northern China.",
+    "address": "Northern China"
+  },
+  {
+    "title": "Statue of Liberty",
+    "description": "A colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States.",
+    "address": "Liberty Island, New York, USA"
+  },
+  {
+    "title": "Sydney Opera House",
+    "description": "A multi-venue performing arts centre in Sydney, Australia, recognized as one of the 20th century's most famous and distinctive buildings.",
+    "address": "Bennelong Point, Sydney, Australia"
+  },
+  {
+    "title": "Machu Picchu",
+    "description": "An Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley.",
+    "address": "Andes Mountains, Peru"
+  },
+  {
+    "title": "Sagrada Familia",
+    "description": "A large unfinished Roman Catholic minor basilica in Barcelona, Spain, designed by architect Antoni Gaudí.",
+    "address": "Barcelona, Catalonia, Spain"
+  },
+  {
+    "title": "Chichen Itza",
+    "description": "A complex of Mayan ruins on Mexico's Yucatán Peninsula, a massive step pyramid known as El Castillo.",
+    "address": "Yucatán Peninsula, Mexico"
+  },
+  {
+    "title": "Buckingham Palace",
+    "description": "The London residence and administrative headquarters of the monarchy of the United Kingdom.",
+    "address": "London, England"
+  }
+]
 
 
 ###PUT Update a Sight
-PUT http://localhost:7000/api/sight
+PUT http://localhost:7000/api/sights/2
 Content-Type: application/json
 
+{
+  "title": "Eiffel Tower Updated",
+  "description": "An updated description for the Eiffel Tower, a major symbol of France located in Paris.",
+  "address": "Champ de Mars, Paris, France"
+}
+
 ###DELETE A Sights
-DELETE http://localhost:7000/api/sight/4
+DELETE http://localhost:7000/api/sights/4

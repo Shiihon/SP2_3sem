@@ -14,7 +14,7 @@ public class SightRoute {
         sightController = new SightController(new SightDAO(emf));
     }
 
-    protected EndpointGroup addSightRoutes() {
+    protected EndpointGroup getSightRoutes() {
         return () -> {
             //GET ALL ROOMS
             get("/", sightController::getAll);

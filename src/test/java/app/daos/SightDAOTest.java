@@ -65,10 +65,10 @@ class SightDAOTest {
         Sight sight = new Sight(sightDTO);
 
         assertNotNull(sight);
-        assertEquals(s3, sight);
+        assertEquals(s2, sight);
 
         assertThat(sightDTO.getId(), is(s2.getId()));
-        assertThat(sightDTO.getTitle(), is(s4.getTitle()));
+        assertThat(sightDTO.getTitle(), is(s2.getTitle()));
     }
 
     @Test
