@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Data // no need for getter and setter annotations
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SightDTO {

@@ -28,7 +28,7 @@ public class SightController implements Controller {
                 ctx.result("No Sights was found");
             } else {
                 ctx.status(200);
-                ctx.json(sightDAO);
+                ctx.json(listofSights);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -63,13 +63,12 @@ public class SightController implements Controller {
 
             int i = 0;
             for (SightDTO sight : newSights) {
-                SightDTO savedDish = sightDAO.create(sight);
-                savedSights[i] = savedDish;
+                SightDTO savedSight = sightDAO.create(sight);
+                savedSights[i] = savedSight;
                 i++;
             }
             ctx.res().setStatus(201);
-            ctx.json(savedSights, SightDTO[].class);
-
+            ctx.json(savedSights, SightDTO.class);
         } catch (Exception e) {
             throw new ApiException(400, e.getMessage());
         }

@@ -37,14 +37,16 @@ public class SightDAO implements IDAO<SightDTO>{
 
     @Override
     public SightDTO create(SightDTO sightDTO) {
-        Sight sight = new Sight(sightDTO);
         try(EntityManager em = emf.createEntityManager()){
             em.getTransaction().begin();
-
+            Sight sight = new Sight(sightDTO);
             em.persist(sight);
             em.getTransaction().commit();
+            return new SightDTO(sight);
+        } catch (Exception e){
+            throw new RollbackException("Error creating af new Sight", e);
         }
-        return new SightDTO(sight);
+
     }
 
     @Override
