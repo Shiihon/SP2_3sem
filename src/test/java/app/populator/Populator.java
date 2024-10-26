@@ -3,6 +3,9 @@ package app.populator;
 import app.entities.Country;
 import app.entities.NationalDish;
 import app.entities.Sight;
+import app.security.dtos.UserDTO;
+import app.security.entities.Role;
+import app.security.entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -15,6 +18,32 @@ public class Populator {
     public Populator(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public static UserDTO[] populateUsers(EntityManagerFactory emf) {
+        User user, admin;
+        Role userRole, adminRole;
+
+        user = new User("usertest", "user123");
+        admin = new User("admintest", "admin123");
+        userRole = new Role("USER");
+        adminRole = new Role("ADMIN");
+        user.addRole(userRole);
+        admin.addRole(adminRole);
+
+        try (var em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(userRole);
+            em.persist(adminRole);
+            em.persist(user);
+            em.persist(admin);
+            em.getTransaction().commit();
+        }
+        UserDTO userDTO = new UserDTO(user.getUsername(), "user123");
+        UserDTO adminDTO = new UserDTO(admin.getUsername(), "admin123");
+        return new UserDTO[]{userDTO, adminDTO};
+    }
+
 
     public List<Country> create5Countries() {
         return List.of(
@@ -141,6 +170,18 @@ public class Populator {
             em.getTransaction().commit();
         }
     }
+
+    public void cleanUpUsers(){
+        try (EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM User").executeUpdate();
+            em.createQuery("DELETE FROM Role ").executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 

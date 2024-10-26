@@ -2,6 +2,7 @@ package app.routes;
 
 import app.controllers.CountryController;
 import app.daos.CountryDAO;
+import app.security.enums.Role;
 import io.javalin.apibuilder.EndpointGroup;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -19,11 +20,11 @@ public class CountryRoute {
 
     public EndpointGroup getCountryRoutes() {
         return () -> {
-            post("/", countryController::create);
-            get("/", countryController::getAll);
-            get("/{id}", countryController::getById);
-            put("/{id}", countryController::update);
-            delete("/{id}", countryController::delete);
+            post("/", countryController::create, Role.ADMIN);
+            get("/", countryController::getAll, Role.USER, Role.ADMIN);
+            get("/{id}", countryController::getById, Role.ADMIN);
+            put("/{id}", countryController::update, Role.ADMIN);
+            delete("/{id}", countryController::delete, Role.ADMIN);
         };
     }
 }

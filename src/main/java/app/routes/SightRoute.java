@@ -2,6 +2,7 @@ package app.routes;
 
 import app.controllers.SightController;
 import app.daos.SightDAO;
+import app.security.enums.Role;
 import io.javalin.apibuilder.EndpointGroup;
 import jakarta.persistence.EntityManagerFactory;
 
