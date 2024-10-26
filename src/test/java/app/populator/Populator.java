@@ -171,5 +171,17 @@ public class Populator {
         }
     }
 
+    public void cleanUpUsers(){
+        try (EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM User").executeUpdate();
+            em.createQuery("DELETE FROM Role ").executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 

@@ -4,7 +4,6 @@ import app.config.AppConfig;
 import app.config.HibernateConfig;
 import app.daos.CountryDAO;
 import app.dtos.CountryDTO;
-import app.dtos.NationalDishDTO;
 import app.entities.Country;
 import app.populator.Populator;
 import app.security.controller.SecurityController;
@@ -85,6 +84,7 @@ class CountryRouteTest {
     @AfterEach
     void tearDown() {
         populator.cleanup(Country.class);
+        populator.cleanUpUsers();
     }
 
     @AfterAll
