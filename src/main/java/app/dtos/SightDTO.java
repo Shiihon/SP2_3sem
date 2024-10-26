@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Data // no need for getter and setter annotations
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SightDTO {
@@ -20,7 +20,16 @@ public class SightDTO {
         this.id = sight.getId();
         this.title = sight.getTitle();
         this.address = sight.getAddress();
+        this.description = sight.getDescription();
     }
+
+    public SightDTO(String title, String description, String address) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+    }
+
+
 
     public static List<SightDTO> toDTOsList(List<Sight> sights) {
         return sights.stream().map(SightDTO::new).toList();

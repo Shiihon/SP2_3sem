@@ -2,6 +2,7 @@ package app.routes;
 
 import app.controllers.SightController;
 import app.daos.SightDAO;
+import app.security.enums.Role;
 import io.javalin.apibuilder.EndpointGroup;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -14,7 +15,7 @@ public class SightRoute {
         sightController = new SightController(new SightDAO(emf));
     }
 
-    protected EndpointGroup addSightRoutes() {
+    protected EndpointGroup getSightRoutes() {
         return () -> {
             //GET ALL ROOMS
             get("/", sightController::getAll);

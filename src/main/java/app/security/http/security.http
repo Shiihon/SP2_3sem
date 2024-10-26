@@ -5,7 +5,7 @@ GET {{url}}/auth/test/
 POST {{url}}/auth/register/
 
 {
-    "username": "user",
+    "username": "admin",
     "password": "test123"
 }
 

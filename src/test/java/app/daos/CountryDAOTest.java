@@ -1,16 +1,15 @@
 package app.daos;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityNotFoundException;
-import app.config.HibernateConfig;
 import app.dtos.CountryDTO;
 import app.dtos.NationalDishDTO;
 import app.dtos.SightDTO;
+import jakarta.persistence.EntityManagerFactory;
+import app.config.HibernateConfig;
 import app.entities.Country;
 import app.entities.NationalDish;
 import app.entities.Sight;
 import app.populator.Populator;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CountryDAOTest {
     private static EntityManagerFactory emfTest;
@@ -38,6 +36,8 @@ class CountryDAOTest {
 
     @BeforeEach
     void setUp() {
+
+
         List<Country> entityListOfCountries = populator.create5Countries();
         List<NationalDish> entitityListOfNationalDishes = populator.create5NationalDishes();
         List<Sight> entitityListOfSights = populator.create5Sights();
@@ -94,13 +94,32 @@ class CountryDAOTest {
 
     @Test
     void create() {
+        CountryDTO countryDTO = new CountryDTO(null,"testCountry", 2222.0, "testCurrency", "testLang", "testAnimal", List.of(), List.of());
+
+        countryDTO.setSightDTOS(listOfSights);
+        countryDTO.setNationalDishDTOS(listOfNationalDishes);
+
+        CountryDTO expected = countryDAO.create(countryDTO);
+        CountryDTO actual = countryDAO.getById(expected.getId());
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
     void update() {
+        CountryDTO expected = listOfCountries.get(0);
+        expected.setCurrency("updated currency");
+
+        CountryDTO actual = countryDAO.update(expected);
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
     void delete() {
+        CountryDTO expected = listOfCountries.get(0);
+        countryDAO.delete(expected.getId());
+
+        Assertions.assertThrowsExactly(EntityNotFoundException.class, () -> countryDAO.getById(expected.getId()));
     }
 }

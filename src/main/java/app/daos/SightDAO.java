@@ -37,19 +37,16 @@ public class SightDAO implements IDAO<SightDTO>{
 
     @Override
     public SightDTO create(SightDTO sightDTO) {
-        Sight sight = new Sight(sightDTO);
         try(EntityManager em = emf.createEntityManager()){
             em.getTransaction().begin();
-
-            Country country = em.find(Country.class, sight.getCountry().getId());
-            if (country == null){
-            }
-            sight.setCountry(country);
-            country.addSight(sight);
+            Sight sight = new Sight(sightDTO);
             em.persist(sight);
             em.getTransaction().commit();
+            return new SightDTO(sight);
+        } catch (Exception e){
+            throw new RollbackException("Error creating af new Sight", e);
         }
-        return new SightDTO(sight);
+
     }
 
     @Override
@@ -93,9 +90,8 @@ public class SightDAO implements IDAO<SightDTO>{
                 em.remove(sight);
             }
             em.getTransaction().commit();
-        } catch (Exception e){
-            //ADD Exception
-            e.printStackTrace();
+        } catch (RollbackException e){
+            throw new RollbackException(String.format("Unable to delete national dish, with id: %d : %s", id, e.getMessage()));
         }
 
     }

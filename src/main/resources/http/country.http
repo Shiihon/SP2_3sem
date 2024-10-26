@@ -1,0 +1,45 @@
+### Get all countries
+GET {{URL}}
+
+### Create countries with lists (empty lists)
+POST {{URL}}/
+Content-Type: application/json
+
+{
+  "name": "Japan",
+  "population": 125800000.0,
+  "currency": "Yen",
+  "official_language": "Japanese",
+  "national_animal": "Japanese Crane",
+  "national-dishes": [],
+  "sights": []
+}
+
+###
+POST {{URL}}/
+Content-Type: application/json
+
+{
+  "name": "Brazil",
+  "population": 212600000.0,
+  "currency": "Brazilian Real",
+  "official_language": "Portuguese",
+  "national_animal": "Jaguar",
+  "national-dishes": [],
+  "sights": []
+}
+
+### Get Country by id
+GET {{URL}}/1
+
+### Update by id
+PUT {{URL}}/2
+Content-Type: application/json
+
+{
+  "national_animal": "Jaguar and Brazilian nut poison frog"
+}
+
+### Delete country by id
+DELETE {{URL}}/8
+

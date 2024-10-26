@@ -14,20 +14,20 @@ public class Sight {
     private Long id;
     @Column (name = "title", nullable = false)
     private String title;
-    @Column (name = "description", length = 500)
+    @Column (name = "description")
     private String description;
-    @Column (name = "adress", nullable = false)
+    @Column (name = "address")
     private String address;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
 
-
     public Sight(SightDTO sightDTO){
         this.id = sightDTO.getId();
         this.title = sightDTO.getTitle();
         this.address = sightDTO.getAddress();
+        this.description = sightDTO.getDescription();
     }
     @Builder
     public Sight(String title, String description, String address, Country country) {

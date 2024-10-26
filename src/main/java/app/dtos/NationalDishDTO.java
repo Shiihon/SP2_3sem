@@ -1,7 +1,6 @@
 package app.dtos;
 
 import app.entities.NationalDish;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.Objects;
@@ -23,14 +22,7 @@ public class NationalDishDTO {
         this.description = nationalDish.getDescription();
     }
 
-    public NationalDishDTO(Long id, String name, String ingredients, String description, int popularityRank, Long countryId) {
-        this.id = id;
-        this.name = name;
-        this.ingredients = ingredients;
-        this.description = description;
-    }
-
-    public NationalDishDTO(String name, String ingredients, String description, int popularityRank, Long countryId) {
+    public NationalDishDTO(String name, String ingredients, String description) {
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
