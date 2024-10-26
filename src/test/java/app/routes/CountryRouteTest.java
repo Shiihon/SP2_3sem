@@ -112,6 +112,7 @@ class CountryRouteTest {
     void testGetCountryById() {
         CountryDTO country = given()
                 .when()
+                .header("Authorization", adminToken)
                 .get(BASE_URL + "/countries/2")
                 .then()
                 .statusCode(200)
@@ -129,6 +130,7 @@ class CountryRouteTest {
                 .contentType("application/json")
                 .body(country)
                 .when()
+                .header("Authorization", adminToken)
                 .post(BASE_URL + "/countries")
                 .then()
                 .statusCode(201)
@@ -149,6 +151,7 @@ class CountryRouteTest {
                 .contentType("application/json")
                 .body(country)
                 .when()
+                .header("Authorization", adminToken)
                 .put(BASE_URL + "/countries/4")
                 .then()
                 .statusCode(200)
@@ -163,6 +166,7 @@ class CountryRouteTest {
     void testDeleteCountry() {
         given()
                 .when()
+                .header("Authorization", adminToken)
                 .delete(BASE_URL + "/countries/3")
                 .then()
                 .statusCode(200);
