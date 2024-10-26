@@ -96,6 +96,7 @@ class CountryRouteTest {
     void testGetAllCountries() {
         CountryDTO[] countries = given()
                 .when()
+                .header("Authorization", userToken)
                 .get(BASE_URL + "/countries")
                 .then()
                 .statusCode(200)
