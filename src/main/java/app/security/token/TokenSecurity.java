@@ -1,11 +1,16 @@
 package app.security.token;
 
+import app.controllers.CountryController;
 import app.security.dtos.UserDTO;
+import app.security.exceptions.ApiException;
+import app.util.Utils;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.util.Arrays;
@@ -19,6 +24,8 @@ import java.util.stream.Collectors;
  * This class implements the ITokenSecurity interface to provide JWT-related operations.
  */
 public class TokenSecurity implements ITokenSecurity {
+    private static final Logger log = LoggerFactory.getLogger(TokenSecurity.class);
+
 
     /**
      * {@inheritDoc}

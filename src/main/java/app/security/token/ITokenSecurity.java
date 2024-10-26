@@ -40,13 +40,12 @@ public interface ITokenSecurity {
     int timeToExpire(String token) throws ParseException;
 
     /**
-     * @param user              a UserDTO object with username and a {@code Set<String>} of roles
-     * @param ISSUER            name of the issuer company or person
-     * @param TOKEN_EXPIRE_TIME in milliseconds
+    * @param user              a UserDTO object with username and a {@code Set<String>} of roles
+    * @param ISSUER            name of the issuer company or person
+    * @param TOKEN_EXPIRE_TIME in milliseconds
      * @param SECRET_KEY        32 characters long
      * @return a JWT token
      * @throws TokenCreationException if there is an error during creation of the token
      */
-    String createToken(UserDTO user, String ISSUER, String TOKEN_EXPIRE_TIME, String SECRET_KEY) throws TokenCreationException;
-
+     String createToken(UserDTO user, String ISSUER, String TOKEN_EXPIRE_TIME, String SECRET_KEY) throws TokenCreationException;
 }

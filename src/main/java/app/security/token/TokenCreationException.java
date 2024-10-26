@@ -13,5 +13,13 @@ public class TokenCreationException extends Exception {
     public TokenCreationException(String message, Throwable cause) {
         super(message, cause);
     }
+    /**
+     * Constructs a TokenCreationException with the specified message.
+     *
+     * @param message the detail message
+     */
+    public TokenCreationException(String message) {
+        super(message);
+    }
 }
 

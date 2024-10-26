@@ -7,7 +7,13 @@ import app.dtos.CountryDTO;
 import app.dtos.NationalDishDTO;
 import app.entities.Country;
 import app.populator.Populator;
+import app.security.controller.SecurityController;
+import app.security.daos.SecurityDAO;
+import app.security.dtos.UserDTO;
+import app.security.entities.User;
+import app.security.exceptions.ValidationException;
 import io.javalin.Javalin;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
 
@@ -20,6 +26,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CountryRouteTest {
+    private static UserDTO userDTO, adminDTO;
+    private static String userToken, adminToken;
+    private static SecurityDAO securityDAO;
+    private static SecurityController securityController;
 
     private Javalin app;
     private EntityManagerFactory emf;
@@ -38,6 +48,8 @@ class CountryRouteTest {
         app = AppConfig.startServer(emf);
         countryDAO = new CountryDAO(emf);
         populator = new Populator(emf);
+        securityDAO = new SecurityDAO(emf);
+        securityController = SecurityController.getInstance();
     }
 
     @BeforeEach
@@ -50,6 +62,24 @@ class CountryRouteTest {
         c5 = countries.get(4);
 
         populator.persist(countries);
+
+        UserDTO[] users = Populator.populateUsers(emf);
+        userDTO = users[0];
+        adminDTO = users[1];
+        try(EntityManager em = emf.createEntityManager()) {
+            User user = em.find(User.class, userDTO.getUsername());
+            System.out.println("user found : " + user);
+        }
+
+        try {
+            UserDTO verifiedUser = securityDAO.getVerifiedUser(userDTO.getUsername(), userDTO.getPassword());
+            UserDTO verifiedAdmin = securityDAO.getVerifiedUser(adminDTO.getUsername(), adminDTO.getPassword());
+            userToken = "Bearer " + securityController.createToken(verifiedUser);
+            adminToken = "Bearer " + securityController.createToken(verifiedAdmin);
+        }
+        catch (ValidationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @AfterEach

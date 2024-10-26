@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class SecurityDAO implements ISecurityDAO {
 
     private static ISecurityDAO instance;
-    private static EntityManagerFactory emf;
+    private EntityManagerFactory emf;
 
     public SecurityDAO(EntityManagerFactory _emf) {
         emf = _emf;
