@@ -21,7 +21,7 @@ public class Routes {
         return () -> {
             path("/national-dishes", nationalDishRoute.getRoutes());
             path("/sights", sightRoute.getSightRoutes());
-            path("/countries", countryRoute.getCountryRoutes());
+            path("/country", countryRoute.getCountryRoutes());
         };
     }
 }
