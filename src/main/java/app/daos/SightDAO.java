@@ -18,9 +18,10 @@ public class SightDAO implements IDAO<SightDTO>{
     public SightDTO getById(Long id) {
        try(EntityManager em  = emf.createEntityManager()){
            Sight sight = em.find (Sight.class, id);
-           if (sight !=null){
-               return new SightDTO(sight);
+           if (sight ==null){
+               throw new EntityNotFoundException("Sight with id " + id + " not found");
            }
+           return new SightDTO(sight);
        } catch (Exception e){
            e.printStackTrace();
        }
