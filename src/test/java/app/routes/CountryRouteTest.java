@@ -30,11 +30,11 @@ class CountryRouteTest {
     private static SecurityDAO securityDAO;
     private static SecurityController securityController;
 
-    private Javalin app;
-    private EntityManagerFactory emf;
-    private CountryDAO countryDAO;
+    static private Javalin app;
+    static private EntityManagerFactory emf;
+    static private CountryDAO countryDAO;
 
-    private Populator populator;
+    static private Populator populator;
 
     private final String BASE_URL = "http://localhost:7000/api";
 
@@ -42,7 +42,7 @@ class CountryRouteTest {
     private Country c1, c2, c3, c4, c5;
 
     @BeforeAll
-    void init() {
+    static void init() {
         emf = HibernateConfig.getEntityManagerFactoryForTest();
         app = AppConfig.startServer(emf);
         countryDAO = new CountryDAO(emf);
@@ -88,7 +88,7 @@ class CountryRouteTest {
     }
 
     @AfterAll
-    void closeDown() {
+    static void closeDown() {
         AppConfig.stopServer();
     }
 

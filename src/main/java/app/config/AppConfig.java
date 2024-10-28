@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class AppConfig {
 
+    private static Javalin app;
     private static Routes routes;
     private static final ExceptionController exceptionController = new ExceptionController();
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
@@ -50,7 +51,7 @@ public class AppConfig {
 
     public static Javalin startServer(EntityManagerFactory emf) {
         routes = new Routes(emf);
-        Javalin app = Javalin.create(AppConfig::configuration);
+        app = Javalin.create(AppConfig::configuration);
         app.beforeMatched(accessController::accessHandler);
         app.start(ApiProps.PORT);
         exceptionContext(app);
@@ -58,7 +59,6 @@ public class AppConfig {
     }
 
     public static void stopServer() {
-        Javalin app = Javalin.create(AppConfig::configuration);
         app.stop();
     }
 }
