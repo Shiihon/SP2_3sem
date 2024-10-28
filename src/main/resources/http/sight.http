@@ -65,4 +65,4 @@ Content-Type: application/json
 }
 
 ###DELETE A Sights
-DELETE http://localhost:7000/api/sights/4
+DELETE http://localhost:7000/api/sights/1

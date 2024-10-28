@@ -24,14 +24,13 @@ public class SightController implements Controller {
 
         try {
             if (listofSights.isEmpty()) {
-                ctx.status(404);
-                ctx.result("No Sights was found");
+               throw new ApiException(404, "No Sights was found");
             } else {
                 ctx.status(200);
                 ctx.json(listofSights);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (ApiException e) {
+            throw new ApiException(404, e.getMessage());
         }
 
     }
@@ -46,8 +45,7 @@ public class SightController implements Controller {
                 ctx.status(200);
                 ctx.json(sightDTO);
             } else {
-                ctx.status(404);
-                ctx.result("No such sights with id " + sightId);
+                throw new ApiException(404, "No such sights with id " + sightId);
             }
         } catch (Exception e) {
             ctx.status(500);
