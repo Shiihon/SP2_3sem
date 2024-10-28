@@ -16,14 +16,13 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NationalDishRoutesTest {
 
-    private Javalin app;
-    private EntityManagerFactory emf;
-    private NationalDishDAO nationalDishDAO;
+    private static Javalin app;
+    private static EntityManagerFactory emf;
+    private static NationalDishDAO nationalDishDAO;
 
-    private Populator populator;
+    private static Populator populator;
 
     private final String BASE_URL = "http://localhost:7000/api";
 
@@ -31,7 +30,7 @@ public class NationalDishRoutesTest {
     private NationalDish n1, n2, n3, n4, n5;
 
     @BeforeAll
-    void init() {
+    static void init() {
         emf = HibernateConfig.getEntityManagerFactoryForTest();
         app = AppConfig.startServer(emf);
         nationalDishDAO = new NationalDishDAO(emf);
@@ -55,7 +54,7 @@ public class NationalDishRoutesTest {
     }
 
     @AfterAll
-    void closeDown() {
+    static void closeDown() {
         AppConfig.stopServer();
     }
 

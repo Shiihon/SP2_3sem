@@ -2,6 +2,7 @@ package app.daos;
 
 import app.config.HibernateConfig;
 import app.dtos.CountryDTO;
+import app.dtos.NationalDishDTO;
 import app.dtos.SightDTO;
 import app.entities.Country;
 import app.entities.Sight;
@@ -77,7 +78,7 @@ class SightDAOTest {
 
         assertNotNull(sightDTOList);
         assertThat(sightDTOList.size(), is(5));
-        assertThat(sightDTOList.get(0).getId(), is(s1.getId()));
+        assertThat(sightDTOList, hasItem(new SightDTO(s1)));
         assertThat(asList(1, 2, 3), hasItems(2));
     }
 

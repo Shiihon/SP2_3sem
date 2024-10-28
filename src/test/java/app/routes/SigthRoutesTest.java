@@ -18,13 +18,12 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SigthRoutesTest {
-    private Javalin app;
-    private EntityManagerFactory emf;
-    private SightDAO sightDAO;
+    static private Javalin app;
+    static private EntityManagerFactory emf;
+    static private SightDAO sightDAO;
     private String BASE_URL = "http://localhost:7000/api";
-    private Populator populator;
+    static private Populator populator;
 
 
     private Sight s1, s2, s3, s4, s5;
@@ -32,7 +31,7 @@ class SigthRoutesTest {
     private List<Sight> sights;
 
     @BeforeAll
-    void init() {
+    static void init() {
         emf = HibernateConfig.getEntityManagerFactoryForTest();
         app = AppConfig.startServer(emf);
         populator = new Populator(emf);
@@ -58,7 +57,7 @@ class SigthRoutesTest {
     }
 
     @AfterAll
-    void closeDown() {
+    static void closeDown() {
         AppConfig.stopServer();
     }
 
